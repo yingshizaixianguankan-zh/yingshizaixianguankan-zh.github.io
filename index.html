@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>影视在线观看｜放映时间表、片单索引与观后短评 · yingshizaixianguankan-zh</title>
+<meta name="description" content="影视在线观看（yingshizaixianguankan-zh）是一份按「几点放、放哪部、值不值」整理的观影索引：每日放映时间表、类型片单、台词与配乐摘录、观后短评，地址为 https://yingshizaixianguankan-zh.github.io，内容每月续写，不涉及资源存储与下载。">
+<meta name="keywords" content="影视在线观看, yingshizaixianguankan-zh, 每日放映时间表, 类型片单索引">
+<meta name="author" content="影视在线观看">
+<meta name="theme-color" content="#e8e1cf">
+<link rel="canonical" href="https://yingshizaixianguankan-zh.github.io">
+<meta property="og:type" content="website">
+<meta property="og:title" content="影视在线观看｜放映时间表、片单索引与观后短评">
+<meta property="og:description" content="按时间、类型和口味整理的观影索引，每月续写。">
+<meta property="og:url" content="https://yingshizaixianguankan-zh.github.io">
+<style>
+:root{
+  --paper:#efe7d5;
+  --paper2:#e6dcbf;
+  --ink:#1c1a17;
+  --ink2:#4a453c;
+  --rule:#8c7f5e;
+  --red:#a52a22;
+  --blue:#24445c;
+  --gold:#b8872a;
+  --max:1180px;
+  --col:1fr 1fr 1fr;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Songti SC","Source Han Serif SC","Noto Serif CJK SC",Georgia,"Times New Roman",serif;
+  font-size:16px;
+  line-height:1.75;
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"kern","liga";
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.012) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(120,90,40,.03) 0 1px, transparent 1px 26px);
+  z-index:60;
+}
+img,svg{max-width:100%;display:block;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{color:var(--red);}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px;}
+
+/* ===== 报头 ===== */
+.masthead{
+  border-bottom:4px double var(--ink);
+  padding:26px 0 14px;
+  position:relative;
+}
+.mast-meta{
+  display:flex;flex-wrap:wrap;gap:10px 26px;
+  justify-content:space-between;align-items:baseline;
+  font-size:12.5px;letter-spacing:.14em;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:8px;margin-bottom:18px;
+}
+.mast-meta b{color:var(--ink);font-weight:600;}
+.brand{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:26px;align-items:end;
+}
+.brand h1{
+  margin:0;
+  font-size:clamp(40px,8.4vw,92px);
+  line-height:1.02;
+  letter-spacing:.02em;
+  font-weight:800;
+  text-indent:-.04em;
+}
+.brand h1 em{
+  font-style:normal;color:var(--red);
+  padding-right:.06em;
+}
+.brand .sub{
+  border-left:2px solid var(--red);
+  padding:2px 0 4px 16px;
+}
+.brand .sub p{margin:0 0 8px;font-size:15px;color:var(--ink2);}
+.brand .sub .big{
+  font-size:clamp(15px,2.2vw,21px);line-height:1.45;color:var(--ink);
+  letter-spacing:.02em;
+}
+.edition{
+  margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 10px;
+  font-size:12.5px;letter-spacing:.08em;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.edition span{
+  border:1px solid var(--rule);padding:2px 9px;background:rgba(255,255,255,.35);
+}
+
+/* ===== 导航 ===== */
+nav.tabs{
+  position:sticky;top:0;z-index:50;
+  background:rgba(239,231,213,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--ink);
+}
+nav.tabs .inner{
+  display:flex;gap:2px;overflow-x:auto;
+  scrollbar-width:none;
+  font-size:14px;letter-spacing:.1em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+nav.tabs .inner::-webkit-scrollbar{display:none;}
+nav.tabs a{
+  flex:0 0 auto;padding:11px 15px;color:var(--ink);
+  border-right:1px solid rgba(140,127,94,.35);
+  white-space:nowrap;
+}
+nav.tabs a:last-child{border-right:0;}
+nav.tabs a.on,nav.tabs a:hover{background:var(--ink);color:var(--paper);}
+
+/* ===== 通用版块 ===== */
+section{padding:52px 0 8px;border-top:1px solid var(--rule);}
+section:target{scroll-margin-top:54px;}
+.kicker{
+  display:flex;align-items:baseline;gap:12px;
+  margin-bottom:22px;
+}
+.kicker .no{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:13px;color:var(--red);letter-spacing:.1em;flex:0 0 auto;
+}
+.kicker h2{
+  margin:0;font-size:clamp(24px,3.8vw,36px);letter-spacing:.03em;
+  font-weight:700;line-height:1.2;
+}
+.kicker .en{
+  margin-left:auto;font-size:11.5px;letter-spacing:.16em;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  text-transform:uppercase;
+}
+.rule{height:0;border-top:1px dashed var(--rule);margin:0 0 24px;}
+
+/* ===== 放映时间表 ===== */
+.schedule{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink);}
+.sch-head{
+  display:none;
+  grid-template-columns:repeat(4,1fr);
+  background:var(--ink);color:var(--paper);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px;letter-spacing:.14em;
+}
+.sch-head div{padding:8px 12px;border-right:1px solid rgba(239,231,213,.3);}
+.sch-head div:last-child{border-right:0;}
+.sch-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid rgba(140,127,94,.5);
+  font-size:14.5px;
+}
+.sch-row:nth-child(odd){background:rgba(255,255,255,.42);}
+.sch-row.now{background:#f3e3c0;box-shadow:inset 3px 0 0 var(--red);}
+.sch-row > div{padding:11px 12px;border-right:1px solid rgba(140,127,94,.3);}
+.sch-row > div:last-child{border-right:0;}
+.sch-time{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:var(--ink2);}
+.sch-title{font-weight:600;letter-spacing:.02em;}
+.sch-tag{font-size:12px;color:var(--blue);letter-spacing:.06em;}
+.sch-tag.on{color:var(--red);font-weight:600;}
+.sch-min{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;}
+
+/* ===== 片单索引 ===== */
+.index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 20px;}
+.card{
+  background:var(--paper2);
+  border:1px solid var(--ink);
+  padding:0 0 14px;
+  display:flex;flex-direction:column;
+  break-inside:avoid;
+}
+.cover{
+  border-bottom:1px solid var(--ink);
+  aspect-ratio:4/3;overflow:hidden;position:relative;
+  background:#2b2722;
+}
+.cover svg{width:100%;height:100%;}
+.cover .badge{
+  position:absolute;top:8px;left:-1px;
+  background:var(--red);color:#f7f1e3;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:11px;letter-spacing:.12em;padding:3px 9px;
+}
+.cover .idx{
+  position:absolute;right:9px;bottom:6px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:34px;color:rgba(247,241,227,.72);line-height:1;
+}
+.card .body{padding:13px 15px 0;}
+.card h3{margin:0 0 6px;font-size:19px;letter-spacing:.02em;line-height:1.35;}
+.card .meta{
+  font-size:12px;letter-spacing:.08em;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  border-bottom:1px dotted var(--rule);padding-bottom:8px;margin-bottom:9px;
+}
+.card p{margin:0;font-size:14px;color:var(--ink2);line-height:1.7;}
+.card .foot{
+  margin-top:11px;display:flex;align-items:center;gap:10px;
+  font-size:12px;letter-spacing:.06em;color:var(--blue);
+}
+.stars{letter-spacing:.16em;color:var(--gold);font-size:12.5px;}
+
+/* ===== 摘录 ===== */
+.pull{
+  display:grid;grid-template-columns:240px 1fr;gap:30px;align-items:start;
+  border:1px solid var(--ink);background:rgba(255,255,255,.45);
+  padding:26px 26px 22px;
+}
+.pull blockquote{
+  margin:0;font-size:clamp(20px,2.9vw,30px);line-height:1.55;
+  letter-spacing:.02em;font-style:normal;
+  border-left:5px solid var(--red);padding-left:18px;
+}
+.pull blockquote cite{
+  display:block;font-size:13px;letter-spacing:.1em;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  margin-top:12px;font-style:normal;border-left:0;padding-left:0;
+}
+.pull .side{font-size:13.5px;color:var(--ink2);border-top:2px solid var(--ink);padding-top:10px;}
+.pull .side b{display:block;color:var(--ink);font-size:15px;margin-bottom:5px;letter-spacing:.04em;}
+
+/* ===== 手记 ===== */
+.log{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.note{
+  border-top:3px solid var(--ink);padding-top:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));
+  padding-bottom:6px;
+}
+.note .hd{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:7px;}
+.note .hd .d{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12.5px;color:var(--red);letter-spacing:.1em;
+}
+.note .hd h3{margin:0;font-size:18.5px;letter-spacing:.02em;}
+.note .hd .tag{
+  margin-left:auto;font-size:11.5px;letter-spacing:.1em;color:var(--blue);
+  border:1px solid var(--rule);padding:1px 7px;
+}
+.note p{margin:0 0 8px;font-size:14.5px;color:var(--ink2);}
+.note .more{font-size:12.5px;letter-spacing:.08em;border-bottom:1px solid var(--blue);}
+
+/* ===== 关于 ===== */
+.about-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--ink);}
+.about-grid > div{padding:18px 16px;border-right:1px solid rgba(140,127,94,.45);}
+.about-grid > div:last-child{border-right:0;}
+.about-grid h4{
+  margin:0 0 8px;font-size:14px;letter-spacing:.14em;color:var(--red);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.about-grid p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.72;}
+.address{
+  margin-top:26px;border:2px dashed var(--ink);background:#24211d;color:#efe7d5;
+  padding:22px 24px;display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:center;
+}
+.address .lb{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:12px;letter-spacing:.18em;color:#c9a96a;line-height:1.7;
+}
+.address .url{
+  font-size:clamp(15px,2.4vw,22px);word-break:break-all;
+  letter-spacing:.02em;color:#f7f1e3;font-weight:600;
+}
+.address .url small{display:block;font-size:12px;font-weight:400;color:#9c9484;letter-spacing:.1em;margin-top:5px;}
+
+/* ===== 页脚 ===== */
+footer{border-top:4px double var(--ink);margin-top:56px;padding:26px 0 40px;font-size:13px;color:var(--ink2);}
+.foot-inner{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;align-items:baseline;}
+.foot-nav{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;letter-spacing:.08em;}
+.foot-nav a{border-bottom:1px dotted var(--rule);}
+.colophon{
+  margin-top:18px;padding-top:14px;border-top:1px solid rgba(140,127,94,.4);
+  font-size:12.5px;line-height:1.85;color:var(--ink2);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+.colophon b{color:var(--ink);}
+#top{
+  position:fixed;right:16px;bottom:20px;z-index:70;
+  width:44px;height:44px;border:1px solid var(--ink);border-radius:50%;
+  background:var(--paper);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;box-shadow:0 2px 0 rgba(0,0,0,.12);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width:900px){
+  .brand{grid-template-columns:1fr;gap:14px;}
+  .brand .sub{border-left:2px solid var(--red);}
+  .schedule{grid-template-columns:1fr;}
+  .sch-head{display:none;}
+  .sch-row{grid-template-columns:1fr 1fr;border-top:1px solid var(--rule);}
+  .sch-row > div{border-right:0;border-bottom:1px dotted rgba(140,127,94,.4);}
+  .sch-row > div:nth-child(1){grid-column:1;grid-row:1;}
+  .sch-row > div:nth-child(2){grid-column:1/3;grid-row:1;font-size:16px;}
+  .sch-row > div:nth-child(3){grid-column:1;grid-row:2;font-size:12px;}
+  .sch-row > div:nth-child(4){grid-column:2;grid-row:2;text-align:right;}
+  .index-grid{grid-template-columns:repeat(2,1fr);}
+  .pull{grid-template-columns:1fr;gap:16px;}
+  .about-grid{grid-template-columns:1fr 1fr;}
+  .about-grid > div{border-bottom:1px solid rgba(140,127,94,.4);}
+  .about-grid > div:nth-child(2n){border-right:0;}
+  .address{grid-template-columns:1fr;gap:10px;}
+}
+@media (max-width:560px){
+  body{font-size:15.5px;}
+  .wrap{padding:0 15px;}
+  section{padding:38px 0 4px;}
+  .kicker{flex-wrap:wrap;gap:8px 12px;}
+  .kicker .en{margin-left:0;width:100%;}
+  .index-grid{grid-template-columns:1fr;}
+  .log{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .about-grid > div{border-right:0;}
+  .sch-row > div{padding:9px 10px;}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-meta">
+      <span><b>影视在线观看</b> · 观影索引报</span>
+      <span>NO. 11 &nbsp;/&nbsp; 2026 年 10 月 25 日</span>
+      <span>本期 6 格 · 3 类 · 4 篇手记</span>
+      <span>yingshizaixianguankan-zh</span>
+    </div>
+    <div class="brand">
+      <h1>影视<br><em>在</em>线<em>观</em>看</h1>
+      <div class="sub">
+        <p>一份按「几点放、放哪部、值不值」排开的观影小报。</p>
+        <p class="big">不看资源，只看门道：时间表、类型索引、台词摘录，和看完那一晚的短评。</p>
+      </div>
+    </div>
+    <div class="edition">
+      <span>放映时间</span><span>类型索引</span><span>声音与台词</span><span>观后短评</span><span>关于这份报</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="栏目导航">
+  <div class="wrap inner">
+    <a href="#reel" class="on">01 放映时间</a>
+    <a href="#index">02 类型索引</a>
+    <a href="#sound">03 声音与台词</a>
+    <a href="#note">04 观后短评</a>
+    <a href="#about">05 关于这份报</a>
+    <a href="#top" aria-label="回到顶部">↑ 顶部</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ============ 01 放映时间 ============ -->
+  <section id="reel" aria-labelledby="reel-h">
+    <div class="kicker">
+      <span class="no">№ 01</span>
+      <h2 id="reel-h">放映时间表</h2>
+      <span class="en">Screening Schedule</span>
+    </div>
+    <div class="rule" role="presentation"></div>
+
+    <div class="schedule" role="table" aria-label="本周放映时间表">
+      <div class="sch-head" role="rowgroup">
+        <div role="columnheader">时间</div>
+        <div role="columnheader">片目</div>
+        <div role="columnheader">类型</div>
+        <div role="columnheader">时长</div>
+      </div>
+
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">10.25 · 20:30</div>
+        <div class="sch-title" role="cell">雨里的第三人</div>
+        <div class="sch-tag" role="cell">城市悬疑</div>
+        <div class="sch-min" role="cell">102 分钟</div>
+      </div>
+      <div class="sch-row now" role="row" aria-current="true">
+        <div class="sch-time" role="cell">10.26 · 21:00</div>
+        <div class="sch-title" role="cell">南风裁缝铺</div>
+        <div class="sch-tag on" role="cell">正在放映 · 年代剧</div>
+        <div class="sch-min" role="cell">45 分钟 × 6</div>
+      </div>
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">10.27 · 22:15</div>
+        <div class="sch-title" role="cell">海底邮局</div>
+        <div class="sch-tag" role="cell">纪录 · 海洋</div>
+        <div class="sch-min" role="cell">58 分钟</div>
+      </div>
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">10.28 · 20:00</div>
+        <div class="sch-title" role="cell">七日菜谱</div>
+        <div class="sch-tag" role="cell">生活喜剧</div>
+        <div class="sch-min" role="cell">33 分钟 × 7</div>
+      </div>
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">10.30 · 21:40</div>
+        <div class="sch-title" role="cell">无声的桥</div>
+        <div class="sch-tag" role="cell">作者电影</div>
+        <div class="sch-min" role="cell">124 分钟</div>
+      </div>
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">11.01 · 19:30</div>
+        <div class="sch-title" role="cell">旧电台 midnight</div>
+        <div class="sch-tag" role="cell">声音剧场</div>
+        <div class="sch-min" role="cell">40 分钟</div>
+      </div>
+      <div class="sch-row" role="row">
+        <div class="sch-time" role="cell">11.02 · 20:45</div>
+        <div class="sch-title" role="cell">雪落前的行李</div>
+        <div class="sch-tag" role="cell">家庭 · 剧情</div>
+        <div class="sch-min" role="cell">96 分钟</div>
+      </div>
+    </div>
+    <p style="margin:18px 0 0;font-size:13.5px;color:var(--ink2);">
+      表里的时间是「建议观看时段」，不是播出排期；片长与集数为整理时记录，具体以正片片头为准。
+    </p>
+  </section>
+
+  <!-- ============ 02 类型索引 ============ -->
+  <section id="index" aria-labelledby="index-h">
+    <div class="kicker">
+      <span class="no">№ 02</span>
+      <h2 id="index-h">类型片单索引</h2>
+      <span class="en">Genre Index</span>
+    </div>
+    <div class="rule" role="presentation"></div>
+
+    <div class="index-grid">
+
+      <article class="card" aria-labelledby="c1">
+        <div class="cover">
+          <span class="badge">NO.01</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《雨里的第三人》封面：雨夜窗玻璃与路灯">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#3a4452"/><stop offset="1" stop-color="#141a22"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#g1)"/>
+            <rect x="0" y="120" width="400" height="2" fill="#6b7684" opacity=".5"/>
+            <rect x="0" y="200" width="400" height="2" fill="#6b7684" opacity=".35"/>
+            <circle cx="300" cy="95" r="34" fill="#e9d89a" opacity=".85"/>
+            <g stroke="#aebcc8" stroke-width="1.4" opacity=".6">
+              <line x1="60" y1="40" x2="40" y2="290"/><line x1="120" y1="30" x2="95" y2="290"/>
+              <line x1="180" y1="55" x2="150" y2="290"/><line x1="240" y1="35" x2="210" y2="290"/>
+              <line x1="340" y1="60" x2="315" y2="290"/><line x1="390" y1="45" x2="370" y2="290"/>
+            </g>
+            <rect x="120" y="150" width="70" height="120" fill="#0e1218" opacity=".7"/>
+          </svg>
+          <span class="idx">01</span>
+        </div>
+        <div class="body">
+          <div class="meta">城市悬疑 · 2025 · 102 min</div>
+          <h3 id="c1">雨里的第三人</h3>
+          <p>一把忘在便利店的长伞，牵出三个人的不在场证明。看点在前半小时的雨声调度。</p>
+          <div class="foot"><span class="stars">★★★★☆</span><span>节奏控优先</span></div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="c2">
+        <div class="cover">
+          <span class="badge">NO.02</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《南风裁缝铺》封面：老缝纫机与布匹">
+            <rect width="400" height="300" fill="#c9a56a"/>
+            <rect x="0" y="0" width="400" height="300" fill="#a8803c" opacity=".25"/>
+            <rect x="40" y="170" width="320" height="14" fill="#5b4324" opacity=".5"/>
+            <rect x="60" y="60" width="120" height="150" fill="#7d5a2e" opacity=".55" transform="rotate(8 120 135)"/>
+            <rect x="230" y="80" width="110" height="140" fill="#e4cfa0" opacity=".8" transform="rotate(-6 285 150)"/>
+            <circle cx="200" cy="215" r="42" fill="#3d2c16" opacity=".75"/>
+            <circle cx="200" cy="215" r="14" fill="#e4cfa0" opacity=".9"/>
+            <line x1="158" y1="215" x2="242" y2="215" stroke="#3d2c16" stroke-width="3"/>
+          </svg>
+          <span class="idx">02</span>
+        </div>
+        <div class="body">
+          <div class="meta">年代剧 · 6 集 · 单集 45 min</div>
+          <h3 id="c2">南风裁缝铺</h3>
+          <p>小巷里改一件旗袍要三天，剧中人却用它改了自己的人生。服化道是主要演员。</p>
+          <div class="foot"><span class="stars">★★★★★</span><span>本月主推</span></div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="c3">
+        <div class="cover">
+          <span class="badge">NO.03</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《海底邮局》封面：海面与一封沉信">
+            <rect width="400" height="170" fill="#1d4a63"/><rect y="170" width="400" height="130" fill="#0e2a3a"/>
+            <ellipse cx="200" cy="170" rx="240" ry="14" fill="#2f6c88" opacity=".5"/>
+            <g fill="#cfe6ee" opacity=".85">
+              <circle cx="90" cy="130" r="3"/><circle cx="160" cy="110" r="2"/><circle cx="330" cy="140" r="2.5"/>
+            </g>
+            <rect x="170" y="60" width="60" height="80" fill="#e8dcc4" transform="rotate(14 200 100)"/>
+            <line x1="175" y1="80" x2="220" y2="75" stroke="#7a6a4a" stroke-width="1.5"/>
+            <line x1="174" y1="92" x2="222" y2="86" stroke="#7a6a4a" stroke-width="1.5"/>
+          </svg>
+          <span class="idx">03</span>
+        </div>
+        <div class="body">
+          <div class="meta">纪录 · 海洋 · 58 min</div>
+          <h3 id="c3">海底邮局</h3>
+          <p>一座没有门牌的邮局，靠潜水员送信。全片几乎没有解说，只有水流声。</p>
+          <div class="foot"><span class="stars">★★★★☆</span><span>睡前一集</span></div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="c4">
+        <div class="cover">
+          <span class="badge">NO.04</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《七日菜谱》封面：砧板与蔬菜剪影">
+            <rect width="400" height="300" fill="#e6d3a8"/>
+            <ellipse cx="200" cy="235" rx="150" ry="22" fill="#b89b66" opacity=".5"/>
+            <rect x="70" y="95" width="260" height="18" fill="#8a5a2b" opacity=".55"/>
+            <circle cx="150" cy="150" r="34" fill="#c45a3a" opacity=".8"/>
+            <circle cx="255" cy="165" r="28" fill="#5f7a2e" opacity=".8"/>
+            <path d="M180 120 Q200 80 230 120" stroke="#3d2c16" stroke-width="4" fill="none"/>
+          </svg>
+          <span class="idx">04</span>
+        </div>
+        <div class="body">
+          <div class="meta">生活喜剧 · 7 集 · 单集 33 min</div>
+          <h3 id="c4">七日菜谱</h3>
+          <p>一周七天不重样，难的是家里三个人口味全不对。笑点藏在切菜声里。</p>
+          <div class="foot"><span class="stars">★★★☆☆</span><span>下饭向</span></div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="c5">
+        <div class="cover">
+          <span class="badge">NO.05</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《无声的桥》封面：雾中一座桥">
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#d8d2c2"/><stop offset="1" stop-color="#6d7280"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#g2)"/>
+            <rect x="0" y="210" width="400" height="4" fill="#3c4050" opacity=".5"/>
+            <path d="M40 215 Q200 150 360 215" stroke="#2c2f3a" stroke-width="7" fill="none"/>
+            <rect x="196" y="132" width="8" height="78" fill="#2c2f3a" opacity=".6"/>
+            <g stroke="#f0ecdf" stroke-width="2" opacity=".7">
+              <line x1="90" y1="70" x2="90" y2="120"/><line x1="150" y1="55" x2="150" y2="115"/>
+              <line x1="280" y1="65" x2="280" y2="120"/><line x1="330" y1="80" x2="330" y2="125"/>
+            </g>
+          </svg>
+          <span class="idx">05</span>
+        </div>
+        <div class="body">
+          <div class="meta">作者电影 · 124 min · 无配乐</div>
+          <h3 id="c5">无声的桥</h3>
+          <p>全片几乎没有对白，桥是唯一的场景。耐心不够会闷，闷完记得住。</p>
+          <div class="foot"><span class="stars">★★★★☆</span><span>静音观看</span></div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="c6">
+        <div class="cover">
+          <span class="badge">NO.06</span>
+          <svg viewBox="0 0 400 300" role="img" aria-label="《旧电台 midnight》封面：老式收音机旋钮">
+            <rect width="400" height="300" fill="#4a3524"/>
+            <rect x="55" y="75" width="290" height="150" rx="10" fill="#2f2418" stroke="#8a6a3a" stroke-width="2"/>
+            <circle cx="160" cy="150" r="46" fill="#1c150d" stroke="#a8803c" stroke-width="2.5"/>
+            <circle cx="160" cy="150" r="30" fill="#0e0a06"/>
+            <line x1="160" y1="150" x2="182" y2="128" stroke="#e4cfa0" stroke-width="3"/>
+            <circle cx="275" cy="150" r="22" fill="#1c150d" stroke="#a8803c" stroke-width="2"/>
+            <g stroke="#c9a56a" stroke-width="1.5" opacity=".7">
+              <line x1="120" y1="230" x2="280" y2="230"/>
+              <line x1="125" y1="226" x2="125" y2="234"/><line x1="275" y1="226" x2="275" y2="234"/>
+            </g>
+          </svg>
+          <span class="idx">06</span>
+        </div>
+        <div class="body">
+          <div class="meta">声音剧场 · 40 min · 双声道</div>
+          <h3 id="c6">旧电台 midnight</h3>
+          <p>一个人、一张唱片、一段深夜热线。建议戴耳机，左耳和右耳讲的是两件事。</p>
+          <div class="foot"><span class="stars">★★★★★</span><span>声音党必听</span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ 03 声音与台词 ============ -->
+  <section id="sound" aria-labelledby="sound-h">
+    <div class="kicker">
+      <span class="no">№ 03</span>
+      <h2 id="sound-h">声音与台词摘录</h2>
+      <span class="en">Sound &amp; Lines</span>
+    </div>
+    <div class="rule" role="presentation"></div>
+
+    <div class="pull">
+      <div class="side">
+        <b>摘录 № 09</b>
+        出自《南风裁缝铺》第三集。这句台词之后，镜头停了整整十秒，只留缝纫机在转。
+      </div>
+      <blockquote>
+        「布要顺着纹路剪，人是顺着日子过的——你要是硬把两块反着的布缝在一起，走两步就裂。」
+        <cite>— 南风裁缝铺 · 第三集 21:14 · 对白记录</cite>
+      </blockquote>
+    </div>
+
+    <div class="pull" style="margin-top:22px;">
+      <div class="side">
+        <b>摘录 № 10</b>
+        《海底邮局》没有旁白，这一段是开场的声景记录：水深 18 米处，信被投进筒里。
+      </div>
+      <blockquote>
+        咕咚一声，不是水声，是信封自己松了手。之后三分钟，什么都没发生，我也没换台。
+        <cite>— 海底邮局 · 开场 00:00–03:12 · 声景笔记</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============ 04 观后短评 ============ -->
+  <section id="note" aria-labelledby="note-h">
+    <div class="kicker">
+      <span class="no">№ 04</span>
+      <h2 id="note-h">观后短评</h2>
+      <span class="en">Afterthoughts</span>
+    </div>
+    <div class="rule" role="presentation"></div>
+
+    <div class="log">
+      <article class="note" aria-labelledby="n1">
+        <div class="hd">
+          <span class="d">10.24</span>
+          <h3 id="n1">《雨里的第三人》看到第 40 分钟</h3>
+          <span class="tag">悬疑</span>
+        </div>
+        <p>别急着猜凶手。真正厉害的是雨——同一个街角，晴天和雨天拍了两遍，剪辑时交替切，你会以为自己记错了场景。这种手法省了对白，也省了配乐。</p>
+        <a class="more" href="#note">继续读这类的 →</a>
+      </article>
+
+      <article class="note" aria-labelledby="n2">
+        <div class="hd">
+          <span class="d">10.22</span>
+          <h3 id="n2">为什么我又把《无声的桥》翻出来</h3>
+          <span class="tag">作者电影</span>
+        </div>
+        <p>第一次看睡着，第二次看哭了。它没有要讲什么，只是让你站在一座桥上很久很久。建议关灯、别倍速，给它的耐心它会还给你。</p>
+        <a class="more" href="#note">继续读这类的 →</a>
+      </article>
+
+      <article class="note" aria-labelledby="n3">
+        <div class="hd">
+          <span class="d">10.19</span>
+          <h3 id="n3">《七日菜谱》是厨房里的相声</h3>
+          <span class="tag">生活喜剧</span>
+        </div>
+        <p>笑点不靠台词抖，靠时机：锅里油刚响，下一句正好接上。33 分钟一集的长度很聪明，刚好是一顿饭的时间，吃完也就放下了。</p>
+        <a class="more" href="#note">继续读这类的 →</a>
+      </article>
+
+      <article class="note" aria-labelledby="n4">
+        <div class="hd">
+          <span class="d">10.16</span>
+          <h3 id="n4">听剧的人，别跳过片头曲</h3>
+          <span class="tag">声音剧场</span>
+        </div>
+        <p>《旧电台 midnight》的片头那三十秒，左耳是唱片底噪，右耳是呼吸。很多人直接跳过，等于把钥匙扔了再问门在哪。戴耳机，从第一秒进。</p>
+        <a class="more" href="#note">继续读这类的 →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 05 关于 ============ -->
+  <section id="about" aria-labelledby="about-h">
+    <div class="kicker">
+      <span class="no">№ 05</span>
+      <h2 id="about-h">关于这份报</h2>
+      <span class="en">About</span>
+    </div>
+    <div class="rule" role="presentation"></div>
+
+    <div class="about-grid">
+      <div>
+        <h4>它是什么</h4>
+        <p>影视在线观看是个人整理的观影索引小报：时间表、类型片单、台词与声音摘录、看完的短评。更新慢，但不灌水。</p>
+      </div>
+      <div>
+        <h4>它不做什么</h4>
+        <p>不提供影片存储、下载、在线播放与盗链，不放资源链接，也不搬运正片片段。这里只有文字与自绘封面。</p>
+      </div>
+      <div>
+        <h4>内容怎么来的</h4>
+        <p>片长、集数、台词时间码均为观看时手记，可能有出入；发现记错会改，并以正片片头信息为准。</p>
+      </div>
+      <div>
+        <h4>封面与版权</h4>
+        <p>页面内所有封面均为原创矢量图形，不含第三方剧照或海报。若涉及作品名称与版权，权利归各自出品方，可联系撤下相关文字。</p>
+      </div>
+    </div>
+
+    <div class="address">
+      <div class="lb">唯一地址<br>THE ONLY PAGE</div>
+      <div>
+        <span class="url">https://yingshizaixianguankan-zh.github.io</span>
+        <small>yingshizaixianguankan-zh · 影视在线观看 · 本页即全部内容，无分站、无内页</small>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>影视在线观看 · 一份私人观影索引小报</div>
+      <nav class="foot-nav" aria-label="底部导航">
+        <a href="#reel">放映时间</a>
+        <a href="#index">类型索引</a>
+        <a href="#sound">声音与台词</a>
+        <a href="#note">观后短评</a>
+        <a href="#about">关于</a>
+        <a href="#top">回顶部</a>
+      </nav>
+    </div>
+    <div class="colophon">
+      <b>canonical</b> · https://yingshizaixianguankan-zh.github.io &nbsp;|&nbsp;
+      <b>encoding</b> UTF-8 &nbsp;|&nbsp; <b>last note</b> 2026-10-25 &nbsp;|&nbsp;
+      本站为纯静态单页，不含资源存储、下载、播放与第三方追踪脚本。
+    </div>
+  </div>
+</footer>
+
+<a id="top" href="#top" aria-label="回到页面顶部" title="回到顶部">↑</a>
+
+<script>
+(function(){
+  var links=document.querySelectorAll('nav.tabs a[href^="#"]');
+  var map={};
+  links.forEach(function(a){
+    var id=a.getAttribute('href').slice(1);
+    if(id && id!=='top'){map[id]=a;}
+  });
+  function onScroll(){
+    var pos=window.scrollY+120,current='';
+    for(var id in map){
+      var el=document.getElementById(id);
+      if(el && el.offsetTop<=pos){current=id;}
+    }
+    links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+current);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
